@@ -34,10 +34,23 @@ class Hangman
             @guessed_letters = data['guessed_letters']
             @guess_string = data['guess_string']
         end
-        #@alphabet = {}
-        #self.set_alphabet
         @winner = nil
-        self.new_game
+    end
+
+    def guess(guess_char)
+        if @secret_word.include? guess_char
+            @secret_word.split("").each_with_index do |secret_char, index|
+                if guess_char == secret_char
+                    @guess_string[index] = guess_char
+                end
+            end
+            @guessed_letters += guess_char
+        else
+            @remaining_guesses[@guess_count] = 'x'
+            @guessed_letters += guess_char
+            @guess_count += 1
+        end
+
     end
 
     def new_game
@@ -78,13 +91,8 @@ class Hangman
         end
     end
 
-    def print_status
-        # print underscores representing each character
-        puts "word: " + @guess_string
-        # print guesses
-        puts "guessed letters: " + @guessed_letters
-        # print remaining number of guesses
-        puts "remaining guesses: " + @remaining_guesses
+    def alphabet
+        return @@alphabet
     end
 
     def load_game
@@ -94,10 +102,6 @@ class Hangman
         data['guess_string']
         data['guessed_letters']
 
-    end
-
-    def alphabet
-        return @@alphabet
     end
 
     def from_json(string)

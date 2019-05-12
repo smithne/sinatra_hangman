@@ -11,9 +11,9 @@
     </p>
     
     <div id='keys'>
-    <form action="/game">
+    <form action="/game" method=POST>
       <% game.alphabet.split("").each do |char| %>
-          <% if game.guessed_letters.include? char %>
+          <% if game.guessed_letters && game.guessed_letters.include?(char) %>
             <input type="submit" value=<%= char %> disabled>
           <% else %>
             <input type="submit" value=<%= char %> name="choice">

@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <style>
+
+    </style>
+  </head>
+  <body>
+    <h1>Hangman</h1>
+    <p>
+      Game started!
+    </p>
+    
+    <div id='keys'>
+    <form action="/game">
+      <% game.alphabet.split("").each do |char| %>
+          <% if game.guessed_letters.include? char %>
+            <input type="submit" value=<%= char %> disabled>
+          <% else %>
+            <input type="submit" value=<%= char %> name="choice">
+          <% end %>
+      <% end %>
+    </form>
+    </div>
+
+    <div id="results">
+      <p>
+        Word: <%= game.guess_string %>
+      </p>
+
+      <p>
+        Remaining guesses: <%= game.remaining_guesses %>
+      </p>
+    </div>
+
+  </body>
+</html>
